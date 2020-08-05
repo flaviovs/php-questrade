@@ -51,7 +51,14 @@ class Client
         if ($offset !== null) {
             $options['offset'] = $offset;
         }
-        $res = $this->call($token, 'v1/symbols/search', $options);
+
+        try {
+            $res = $this->call($token, 'v1/symbols/search', $options);
+        } catch (Error $ex) {
+            if ($ex->getCode() === 404) {
+                return [];
+            }
+        }
 
         if (!isset($res['symbols'])) {
             throw Error('Unexpected result set');
@@ -75,11 +82,17 @@ class Client
             $startTime = $endTime->sub(new \DateInterval('P7D'));
         }
 
-        $res = $this->call($token, "v1/markets/candles/$symbolId", [
-            'startTime' => $startTime->format('c'),
-            'endTime' => $endTime->format('c'),
-            'interval' => $interval,
-        ]);
+        try {
+            $res = $this->call($token, "v1/markets/candles/$symbolId", [
+                'startTime' => $startTime->format('c'),
+                'endTime' => $endTime->format('c'),
+                'interval' => $interval,
+            ]);
+        } catch (Error $ex) {
+            if ($ex->getCode() === 404) {
+                return [];
+            }
+        }
 
         if (!isset($res['candles'])) {
             throw Error('Unexpected result set');
