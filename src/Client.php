@@ -62,7 +62,7 @@ class Client
         }
 
         if (!isset($res['symbols'])) {
-            throw Error('Unexpected result set');
+            throw new Error('Unexpected result set');
         }
 
         return $res['symbols'];
@@ -97,7 +97,7 @@ class Client
         }
 
         if (!isset($res['candles'])) {
-            throw Error('Unexpected result set');
+            throw new Error('Unexpected result set');
         }
 
         return $res['candles'];
