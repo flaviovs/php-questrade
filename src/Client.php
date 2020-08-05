@@ -58,6 +58,7 @@ class Client
             if ($ex->getCode() === 404) {
                 return [];
             }
+            throw $ex;
         }
 
         if (!isset($res['symbols'])) {
@@ -92,6 +93,7 @@ class Client
             if ($ex->getCode() === 404) {
                 return [];
             }
+            throw $ex;
         }
 
         if (!isset($res['candles'])) {
