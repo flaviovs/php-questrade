@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ruleset name="Custom Coding Standard">
+  <!-- Command line flags:
+       s: Show sniffs
+  -->
+  <arg value="s"/>
+
+  <file>.</file>
+
+  <exclude-pattern>/vendor/*</exclude-pattern>
+
+  <rule ref="PSR12">
+    <!-- Disable const visibility check (PHP >= 7.1 only) -->
+    <exclude name="PSR12.Properties.ConstantVisibility.NotFound"/>
+  </rule>
+</ruleset>
