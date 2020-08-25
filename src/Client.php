@@ -36,7 +36,7 @@ class Client
 
     public function getAccessToken($refreshToken)
     {
-        $res = $this->call(null, '/oauth2/token', [
+        $res = $this->call(null, 'oauth2/token', [
             'grant_type' => 'refresh_token',
             'refresh_token' => $refreshToken,
         ]);
