@@ -130,7 +130,7 @@ class Client
         if ($data !== null) {
             curl_setopt_array($ch, [
                 CURLOPT_POST => true,
-                CURLOPT_POSTFIELDS => $data,
+                CURLOPT_POSTFIELDS => json_encode($data),
             ]);
         }
 
