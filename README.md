@@ -41,7 +41,7 @@ try {
 	exit(1);
 }
 
-foreach ($client->symbolSearch($token, 'DJI') as $result) {
+foreach ($client->symbolsSearch($token, 'DJI') as $result) {
 	print_r($result);
 }
 
