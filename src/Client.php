@@ -68,6 +68,65 @@ class Client
         return $res['symbols'];
     }
 
+    public function symbolsOptions(Token $token, $optionId)
+    {
+        try {
+            $res = $this->call($token, 'v1/symbols/'.$optionId.'/options');
+        } catch (Error $ex) {
+            if ($ex->getCode() === 404) {
+                return [];
+            }
+            throw $ex;
+        }
+
+        if (!isset($res['options'])) {
+                throw new Error('Unexpected result set');
+        }
+
+        return $res;
+    }
+
+    public function stockQuotes(Token $token, array $optionIds)
+    {
+        $options = ['ids' => $optionIds];
+
+        try {
+            $res = $this->call($token, 'v1/markets/quotes', $options);
+        } catch (Error $ex) {
+            if ($ex->getCode() === 404) {
+                return [];
+            }
+            throw $ex;
+        }
+
+        if (!isset($res['quotes'])) {
+            throw new Error('Unexpected result set');
+        }
+
+        return $res;
+    }
+
+    public function optionQuotes(Token $token, array $optionIds)
+    {
+
+        $data = ['optionIds' => $optionIds];
+
+        try {
+            $res = $this->call($token, 'v1/markets/quotes/options', null, $data);
+        } catch (Error $ex) {
+            if ($ex->getCode() === 404) {
+                return [];
+            }
+            throw $ex;
+        }
+
+        if (!isset($res['optionQuotes'])) {
+            throw new Error('Unexpected result set');
+        }
+
+        return $res;
+    }
+
     public function marketsCandles(
         Token $token,
         $symbolId,
