@@ -68,10 +68,11 @@ class Client
         return $res['symbols'];
     }
 
-    public function symbolsOptions(Token $token, $optionId)
+
+    public function symbolsOptions(Token $token, $underlyingId)
     {
         try {
-            $res = $this->call($token, 'v1/symbols/'.$optionId.'/options');
+            $res = $this->call($token, 'v1/symbols/'.$underlyingId.'/options');
         } catch (Error $ex) {
             if ($ex->getCode() === 404) {
                 return [];
@@ -86,9 +87,10 @@ class Client
         return $res;
     }
 
-    public function stockQuotes(Token $token, array $optionIds)
+
+    public function stockQuotes(Token $token, array $underlyingIds)
     {
-        $options = ['ids' => $optionIds];
+        $options = ['ids' => $underlyingIds];
 
         try {
             $res = $this->call($token, 'v1/markets/quotes', $options);
@@ -105,6 +107,7 @@ class Client
 
         return $res;
     }
+
 
     public function optionQuotes(Token $token, array $optionIds)
     {
@@ -126,6 +129,7 @@ class Client
 
         return $res;
     }
+
 
     public function marketsCandles(
         Token $token,
