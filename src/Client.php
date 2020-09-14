@@ -80,7 +80,7 @@ class Client
             throw $ex;
         }
 
-        if (!isset($res['options'])) {
+        if (!isset($res['optionChain'])) {
                 throw new Error('Unexpected result set');
         }
 
