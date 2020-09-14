@@ -90,7 +90,7 @@ class Client
 
     public function stockQuotes(Token $token, array $underlyingIds)
     {
-        $options = ['ids' => $underlyingIds];
+        $options = ['ids' => implode(",",$underlyingIds)];
 
         try {
             $res = $this->call($token, 'v1/markets/quotes', $options);
